@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Maaaama❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles and variables */
+        :root {
+            --primary-red: #e53935;
+            --primary-pink: #ff4081;
+            --light-pink: #ff80ab;
+            --light-gold: #ffd180;
+            --white: #ffffff;
+            --soft-shadow: 0 10px 30px rgba(229, 57, 53, 0.3);
+            --transition: all 0.4s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 30%, #ff758c 60%, #ff7eb3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .hearts-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            animation: float 15s infinite linear;
+            font-size: 1.5rem;
+            user-select: none;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 24px;
+            box-shadow: var(--soft-shadow);
+            padding: 35px 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transition: var(--transition);
+        }
+        
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 600;
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            margin: 15px 0 25px;
+            letter-spacing: 1px;
+        }
+        
+        /* Message box styling */
+        .message-box {
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 20px 0;
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .message-box p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: #333;
+            max-width: 500px;
+            transition: var(--transition);
+        }
+        
+        .message-box.fade {
+            opacity: 0.3;
+        }
+        
+        /* Buttons styling */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary-pink), var(--primary-red));
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(229, 57, 53, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 120px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 57, 53, 0.55);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn.prev-btn {
+            background: linear-gradient(to left, var(--light-pink), #ff758c);
+        }
+        
+        .btn.finish-btn {
+            background: linear-gradient(to right, var(--light-gold), #ffb300);
+            display: none;
+        }
+        
+        /* Music toggle button */
+        .music-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid var(--light-pink);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 20;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .music-toggle:hover {
+            transform: rotate(15deg);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        
+        .music-toggle.muted {
+            color: #aaa;
+        }
+        
+        #final-screen {
+            display: none;
+            padding: 40px 30px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .big-heart {
+            font-size: 8rem;
+            color: var(--primary-red);
+            animation: pulse 1.5s infinite;
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(229, 57, 53, 0.7);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(0.9); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(0.9); }
+        }
+        
+        #final-screen h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: var(--primary-red);
+            margin-top: 15px;
+            text-align: center;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Confetti hearts */
+        .confetti-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: confetti-fall 5s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .card {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .message-box p {
+                font-size: 1.25rem;
+                line-height: 1.5;
+            }
+            
+            .btn {
+                padding: 10px 22px;
+                font-size: 1rem;
+                min-width: 110px;
+            }
+            
+            .big-heart {
+                font-size: 6rem;
+            }
+            
+            #final-screen h2 {
+                font-size: 2.2rem;
+            }
+            
+            .music-toggle {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .card {
+                padding: 45px 40px;
+            }
+            
+            h1 {
+                font-size: 3.2rem;
+            }
+            
+            .message-box p {
+                font-size: 1.55rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hearts-background" id="hearts-background"></div>
+    
+    <!-- Main message card -->
+    <div class="card" id="message-card">
+        <h1>For My Maaaama❤️</h1>
+        <div class="progress" id="progress">1/10</div>
+        <div class="message-box" id="message-box">
+            <p>My dearest love, on this Valentine's Day, I want you to know...</p>
+        </div>
+        <div class="buttons">
+            <button id="prev-btn" class="btn prev-btn">Previous 💗</button>
+            <button id="next-btn" class="btn next-btn">Next 💕</button>
+            <button id="finish-btn" class="btn finish-btn">Finish 💖</button>
+        </div>
+        <button id="music-toggle" class="music-toggle">🔊</button>
+    </div>
+    
+    <!-- Final screen (hidden initially) -->
+    <div class="card" id="final-screen">
+        <div class="big-heart">❤️</div>
+        <h2>I Love You Forever, My Love 💝</h2>
+        <div id="confetti-container"></div>
+    </div>
+    
+    <!-- Background music (user should replace with their own audio file) -->
+    <audio id="background-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Valentine's message parts - broken into 10 short paragraphs
+        const messageParts = [
+            "Happy Valentine’s Day to the woman who owns my heart without stress.",
+            "When I talk about you, I can’t help but smile because you are the most beautiful person I have ever seen.",
+            "Seeing your face brightens my darkest days, and your smile is my favorite melody. When I think of you, my heart relaxes. That is your power over me. 😌",
+            "Your beauty is unmatched, divinely crafted by the heavens.",
+            "I cherish the little things: the way you are always goofy when youre happy...",
+            "You have filled my life with a love so deep and pure that I am forever grateful.",
+            "I love how you care, how you support me, and how you believe in me. You push me to be better without pressure.",
+            "I never want to see you sad, but I'm still the one stressing you the most 😂.",
+            "Happy Valentine's Day to the most amazing woman in the world.",
+            "I love you more than words can express Mma."
+        ];
+        
+        // DOM Elements
+        const messageCard = document.getElementById('message-card');
+        const finalScreen = document.getElementById('final-screen');
+        const messageBox = document.getElementById('message-box');
+        const progressIndicator = document.getElementById('progress');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const musicToggle = document.getElementById('music-toggle');
+        const backgroundMusic = document.getElementById('background-music');
+        const heartsBackground = document.getElementById('hearts-background');
+        const confettiContainer = document.getElementById('confetti-container');
+        
+        // State variables
+        let currentIndex = 0;
+        let isMuted = false;
+        
+        // Initialize the page
+        function init() {
+            // Create floating hearts background
+            createFloatingHearts();
+            
+            // Load saved progress from localStorage
+            if (localStorage.getItem('valentineProgress')) {
+                currentIndex = parseInt(localStorage.getItem('valentineProgress'));
+                if (currentIndex >= messageParts.length) {
+                    currentIndex = messageParts.length - 1;
+                }
+            }
+            
+            // Load music state from localStorage
+            if (localStorage.getItem('valentineMusicMuted') === 'true') {
+                isMuted = true;
+                backgroundMusic.muted = true;
+                musicToggle.classList.add('muted');
+                musicToggle.textContent = '🔇';
+            }
+            
+            // Display initial message
+            updateMessage();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Start background music after first user interaction
+            document.addEventListener('click', startMusic, { once: true });
+        }
+        
+        // Create floating hearts for background
+        function createFloatingHearts() {
+            const heartSymbols = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            const heartCount = Math.floor(Math.random() * 10) + 15; // 15-25 hearts
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                // Random position, size and animation duration
+                const size = Math.random() * 1.5 + 0.5;
+                const leftPos = Math.random() * 100;
+                const animationDuration = Math.random() * 10 + 10;
+                const delay = Math.random() * 5;
+                
+                heart.style.fontSize = `${size}rem`;
+                heart.style.left = `${leftPos}%`;
+                heart.style.bottom = `-${size * 20}px`;
+                heart.style.animationDuration = `${animationDuration}s`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                heartsBackground.appendChild(heart);
+            }
+        }
+        
+        // Create confetti hearts for final screen
+        function createConfettiHearts() {
+            const heartSymbols = ['❤️', '💖', '💗', '💓', '💕', '💘', '💝'];
+            const confettiCount = 40;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'confetti-heart';
+                heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                
+                // Random position, size and animation
+                const size = Math.random() * 1.2 + 0.5;
+                const leftPos = Math.random() * 100;
+                const animationDuration = Math.random() * 3 + 2;
+                const delay = Math.random() * 1.5;
+                
+                heart.style.fontSize = `${size}rem`;
+                heart.style.left = `${leftPos}%`;
+                heart.style.top = '0';
+                heart.style.animationDuration = `${animationDuration}s`;
+                heart.style.animationDelay = `${delay}s`;
+                
+                confettiContainer.appendChild(heart);
+            }
+        }
+        
+        // Update message display and progress indicator
+        function updateMessage() {
+            // Save progress to localStorage
+            localStorage.setItem('valentineProgress', currentIndex.toString());
+            
+            // Update progress indicator
+            progressIndicator.textContent = `${currentIndex + 1}/${messageParts.length}`;
+            
+            // Fade out current message
+            messageBox.classList.add('fade');
+            
+            // Update message after a short delay for animation
+            setTimeout(() => {
+                messageBox.innerHTML = `<p>${messageParts[currentIndex]}</p>`;
+                messageBox.classList.remove('fade');
+            }, 300);
+            
+            // Update button visibility
+            prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
+            nextBtn.style.display = currentIndex === messageParts.length - 1 ? 'none' : 'block';
+            finishBtn.style.display = currentIndex === messageParts.length - 1 ? 'block' : 'none';
+        }
+        
+        // Set up event listeners for buttons
+        function setupEventListeners() {
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateMessage();
+                }
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < messageParts.length - 1) {
+                    currentIndex++;
+                    updateMessage();
+                }
+            });
+            
+            finishBtn.addEventListener('click', () => {
+                // Hide message card and show final screen
+                messageCard.style.opacity = '0';
+                messageCard.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    messageCard.style.display = 'none';
+                    finalScreen.style.display = 'flex';
+                    finalScreen.style.opacity = '0';
+                    
+                    // Trigger confetti animation after a short delay
+                    setTimeout(() => {
+                        finalScreen.style.opacity = '1';
+                        createConfettiHearts();
+                    }, 50);
+                }, 500);
+            });
+            
+            musicToggle.addEventListener('click', toggleMusic);
+        }
+        
+        
+        function toggleMusic() {
+            isMuted = !isMuted;
+            backgroundMusic.muted = isMuted;
+            musicToggle.classList.toggle('muted', isMuted);
+            musicToggle.textContent = isMuted ? '🔇' : '🔊';
+            localStorage.setItem('valentineMusicMuted', isMuted.toString());
+        }
+        
+        
+        function startMusic() {
+            if (!isMuted) {
+                backgroundMusic.play().catch(e => console.log("Autoplay prevented:", e));
+            }
+        }
+        
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
